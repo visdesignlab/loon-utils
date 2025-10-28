@@ -31,5 +31,11 @@ dev = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/loon_utils"]
 
+[tool.hatch.build.targets.wheel.files]
+include = [
+  "src/loon_utils/**",
+  "README.md",
+]
+
 [project.urls]
 Homepage = "https://github.com/visdesignlab/loon-utils"
