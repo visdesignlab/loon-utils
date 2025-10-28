@@ -6,5 +6,10 @@ setup(
     packages=find_packages(),
     install_requires=[
         # Add your dependencies here
-    ]
+    ],
+    entry_points={
+        'console_scripts': [
+            'loon-utils=loon_utils.main:main',
+        ],
+    },
 )
