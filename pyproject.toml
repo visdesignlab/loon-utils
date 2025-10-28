@@ -4,7 +4,7 @@ version = "0.0.1"
 description = "A python library for updating / converting data for use in Loon visualization"
 readme = "README.md"
 authors = [
-    { name = "Devin Lange", email = "devinscottlange@gmail.com" },
+    { name = "Luke Schreiber", email = "lucasjschreiber@gmail.com" },
     { name = "Devin Lange", email = "devinscottlange@gmail.com" }
 ]
 requires-python = ">=3.13"
@@ -28,6 +28,8 @@ dev = [
     "pytest>=8.3.5",
 ]
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/loon_utils"]
 
 [project.urls]
-Homepage = "https://github.com/hms-dbmi/udi-grammar-py"
+Homepage = "https://github.com/visdesignlab/loon-utils"
