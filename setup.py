@@ -9,7 +9,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'loon-utils=loon_utils.main:main',
+            'print-hello=loon_utils.main:hello',
         ],
     },
 )
