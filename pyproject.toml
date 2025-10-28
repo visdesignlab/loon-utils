@@ -1,13 +1,13 @@
 [project]
 name = "loon-utils"
-version = "0.0.1"
+version = "0.0.2"
 description = "A python library for updating / converting data for use in Loon visualization"
 readme = "README.md"
 authors = [
     { name = "Luke Schreiber", email = "lucasjschreiber@gmail.com" },
     { name = "Devin Lange", email = "devinscottlange@gmail.com" }
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 license = { text = "MIT" }
 classifiers = [
     "Environment :: Console",
