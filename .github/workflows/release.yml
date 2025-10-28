@@ -16,6 +16,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
+    environment: release
     permissions:
       contents: write # Required for making the Release
       id-token: write # Required for PyPI Trusted Publishing
