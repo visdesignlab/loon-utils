@@ -10,10 +10,19 @@ name: Release
 # The version (and tag) of the release is determined by the version in the
 # `pyproject.toml` file.
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
 
 jobs:
   release:
+    # Run on direct pushes to main OR when a pull request to main is closed and merged
+    if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
     runs-on: ubuntu-latest
 
     environment: release
