@@ -1,6 +1,6 @@
 [project]
 name = "loon-utils"
-version = "0.0.3"
+version = "0.0.4"
 description = "A python library for updating / converting data for use in Loon visualization"
 readme = "README.md"
 authors = [
@@ -28,9 +28,12 @@ dev = [
     "pytest>=8.3.5",
 ]
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/loon_utils"]
+[tool.hatch.build.packages.find]
+where = "src"
+include = ["loon_utils"]
 
+[project.scripts]
+hello = "loon_utils.main:hello"
 
 [project.urls]
 Homepage = "https://github.com/visdesignlab/loon-utils"
