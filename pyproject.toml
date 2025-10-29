@@ -28,9 +28,11 @@ dev = [
     "pytest>=8.3.5",
 ]
 
-[tool.hatch.build.packages.find]
-where = "src"
-include = ["loon_utils"]
+[tool.hatch.build.targets.sdist]
+include = ["src/loon_utils"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/loon_utils"]
 
 [project.scripts]
 hello = "loon_utils.main:hello"
