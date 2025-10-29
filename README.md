@@ -1,6 +1,6 @@
 # Loon Utilities Package
 
-[PyPi Package](pypi.org/project/loon-utils/) - A suite of tools to help **convert** your **cell microscopy** data for **visualization** in [Loon.](https://vdl.sci.utah.edu/loonar/)
+A suite of tools [(PyPi Package)](pypi.org/project/loon-utils/) to help **convert** your **cell microscopy** data for **visualization** in [Loon.](https://vdl.sci.utah.edu/loonar/)
 
 [Loon](https://vdl.sci.utah.edu/loonar/) is a **data visualization software** for cell microscopy data. 
 
