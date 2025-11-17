@@ -117,7 +117,22 @@ location = "location"
 # New track ID column
 loon_track = "loon_track"
 
-def main(csv_filename, roi_folder, output_folder, metadata_csv=None, metadata_parquet=None, segmentations_folder=None):
+def main(csv_filename=None, roi_folder=None, output_folder=None,
+         metadata_csv=None, metadata_parquet=None, segmentations_folder=None):
+    """
+    Console entry point.
+    Without args: launch GUI.
+    With args: perform batch conversion (requires csv_filename, roi_folder, output_folder).
+    """
+    # If called as console script with no parameters -> open GUI
+    if csv_filename is None and roi_folder is None and output_folder is None:
+        run_gui()
+        return
+
+    # Validate required args for non-GUI mode
+    if csv_filename is None or roi_folder is None or output_folder is None:
+        raise TypeError("csv_filename, roi_folder, and output_folder are required unless launching GUI with no args.")
+
     # load csv into df
     df = pd.read_csv(csv_filename)
 
