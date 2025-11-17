@@ -38,21 +38,72 @@ Outputs:
 """
 
 import os
-import tkinter as tk
-from tkinter import filedialog, messagebox
-import fnmatch
-from matlab_to_all import QUIET_MODE
-import util_common as util
-from roifile import ImagejRoi
-from geojson import Feature, Polygon, FeatureCollection, dumps
-from typing import Union, List
-import pandas as pd
 import re
+import fnmatch
 import sys
 import threading
+import subprocess
+import importlib
+import tkinter as tk
+from tkinter import filedialog, messagebox
+from typing import Union, List
 
+def ensure(module_name, pip_name=None, attr=None):
+    """
+    Attempt to import module; if missing, pip install then import.
+    pip_name defaults to module_name. Returns module or attribute.
+    """
+    pip_name = pip_name or module_name
+    try:
+        mod = importlib.import_module(module_name)
+    except ModuleNotFoundError:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", pip_name])
+        mod = importlib.import_module(module_name)
+    return getattr(mod, attr) if attr else mod
 
-QUIET_MODE = False
+# Optional internal module (do not hard import)
+try:
+    from matlab_to_all import QUIET_MODE  # local helper if present
+except ModuleNotFoundError:
+    QUIET_MODE = False  # fallback
+
+# Optional internal util module (fallback to minimal stubs)
+try:
+    import util_common as util
+except ModuleNotFoundError:
+    class util:  # minimal shim
+        @staticmethod
+        def ensure_directory_exists(path_or_file):
+            # support both dir path and file path
+            base = os.path.dirname(path_or_file) if os.path.splitext(path_or_file)[1] else path_or_file
+            if base:
+                os.makedirs(base, exist_ok=True)
+        @staticmethod
+        def export_file(data, full_path, name, overwrite=True):
+            os.makedirs(full_path, exist_ok=True)
+            out = os.path.join(full_path, f"{name}.json")
+            if not overwrite and os.path.exists(out):
+                return
+            with open(out, "w") as f:
+                f.write(data)
+        @staticmethod
+        def msg(msg, *args, **kwargs): print(msg)
+        @staticmethod
+        def msg_header(msg, *args, **kwargs): print(msg)
+        @staticmethod
+        def return_carriage(*args, **kwargs): pass
+
+# Third-party modules (auto-install if missing)
+ImagejRoi = ensure("roifile", "roifile", "ImagejRoi")
+_geojson = ensure("geojson", "geojson")
+Feature = getattr(_geojson, "Feature")
+Polygon = getattr(_geojson, "Polygon")
+FeatureCollection = getattr(_geojson, "FeatureCollection")
+dumps = getattr(_geojson, "dumps")
+pd = ensure("pandas", "pandas")
+# Ensure a Parquet engine is available for pandas.to_parquet
+ensure("pyarrow", "pyarrow")
+
 OVERWRITE = True
 
 # Column names from file
@@ -128,6 +179,7 @@ def main(csv_filename, roi_folder, output_folder, metadata_csv=None, metadata_pa
     roi_to_geojson(df, roi_folder, geojson_output_folder)
 
     parquet_path = metadata_parquet if metadata_parquet else os.path.join(output_folder, "metadata.parquet")
+    # pyarrow ensured above; if user prefers fastparquet, swap ensure("fastparquet","fastparquet") and pass engine="fastparquet"
     df.to_parquet(parquet_path, index=False)
 
     return

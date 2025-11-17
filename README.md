@@ -23,14 +23,10 @@ pip install loon-utils
     ```
 
 - #### Or, run any of them from the command line
-    ```sh
-    hello
-    ```
+    ``` hello ```
 
 ## Convert Data From Trackmate
-    ```sh
-    convert_trackmate
-    ```
+    ``` convert_trackmate ```
 
 ## Convert
 ## Contributing
