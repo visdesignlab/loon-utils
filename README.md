@@ -29,4 +29,4 @@ pip install loon-utils
 
 ## Contributing
 
-To help develop or add conversion tools, open an issue or submit a descriptive pull request.
+To help develop or add conversion tools, open an issue or submit a descriptive pull request [here](https://github.com/visdesignlab/loon-utils)
