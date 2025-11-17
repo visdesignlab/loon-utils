@@ -16,17 +16,23 @@ pip install loon-utils
 
 ### 2. Test
 
-- #### In a Python session
+- #### Run Any Loon Utility Function in a Python session
     ```py
     from loon_utils import hello
     hello()
     ```
 
-- #### Or, run from the command line
+- #### Or, run any of them from the command line
     ```sh
     hello
     ```
 
+## Convert Data From Trackmate
+    ```sh
+    convert_trackmate
+    ```
+
+## Convert
 ## Contributing
 
 To help develop or add conversion tools, open an issue or submit a descriptive pull request [here](https://github.com/visdesignlab/loon-utils)
